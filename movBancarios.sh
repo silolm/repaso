@@ -57,6 +57,10 @@ selectOption
 # Function add new move
 
 function newMove() {
+	reDia='^[1-31]+$'
+	reMes='^[1-12]+$'
+	reAnyo='^[1900-2900]+$'
+
 	echo "--------------------------------------------------------------------"
 	echo "			Añadir nuevo movimiento"
 	echo "--------------------------------------------------------------------"
@@ -67,15 +71,37 @@ function newMove() {
 	   di=0
 	fi
 
-	read -r -p "Introduce una descripción: " descripcion
-	read -r -p "Introduce el importe: " importe
-	echo "Fecha de nacimiento"
-	read -r -p "Día [1-31]: " dia
-	read -r -p "Mes [1-12]: " mes
-	read -r -p "Año : " anyo
+			read -r -p "Introduce una descripción: " descripcion
+			read -r -p "Introduce el importe: " importe
+			echo "Fecha de nacimiento"
 
-	echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$file"
-	echo -e "\n\n"
+	while :
+        	do
+                	read -r -p "Día [1-31]: " dia
+	                if [[ $dia =~ $reDia ]]; then
+		                read -r -p "Mes [1-12]: " mes
+        	        else
+                	        echo -e "Fecha incorrecta \n"
+				selectOption
+               		fi
+
+        	        if [[ $mes =~ $reMes ]]; then
+	        	        read -r -p "Año: " anyo
+	                else
+        	                echo -e "Fecha incorrecta \n"
+				selectOption
+	                fi
+
+                	if [[ $anyo =~ $reAnyo ]]; then
+                        	echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$file"
+				echo -e "\n\n"
+				break
+	                else
+        	                echo -e "Fecha incorrecta \n"
+				selectOption
+                	fi
+        done
+
 
 	selectOption
 }
