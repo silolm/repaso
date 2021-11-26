@@ -1,7 +1,6 @@
 #!/bin/bash
 file="$HOME/movimientos.txt"
 
-
 # Función Opciones del Menú
 
 function menu() {
@@ -38,14 +37,17 @@ esac
 
 
 function viewOperations() {
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------------"
 	echo "		  Visualizar todos los movimientos"
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------------"
 
-#lo vamos a ordenar por fecha
-awk '
-BEGIN { FS = OFS = ":" }
-{gsub(/\:/, "/", $4)} 1' "$file"
+	if [ -s "$file" ]; then
+	   #lo vamos a ordenar por fecha
+	   awk -F : '{print "Id: "$1" Concepto: "$2" Importe: "$3" Fecha de nacimiento: "$4"/"$5"/"$6}' "$file"
+	   echo -e "\n\n\n"
+	else
+	   echo -e "No hay movimientos \n\n\n"
+	fi
 
 
 selectOption
@@ -55,9 +57,15 @@ selectOption
 # Function add new move
 
 function newMove() {
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------------"
 	echo "			Añadir nuevo movimiento"
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------------"
+
+	if [ -s "$file" ]; then
+	   di=$(awk 'END {print NR}' "$file")
+	else
+	   di=0
+	fi
 
 	read -r -p "Introduce una descripción: " descripcion
 	read -r -p "Introduce el importe: " importe
@@ -66,7 +74,8 @@ function newMove() {
 	read -r -p "Mes [1-12]: " mes
 	read -r -p "Año : " anyo
 
-	echo "$descripcion:$importe:$dia:$mes:$anyo" >> "$file"
+	echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$file"
+	echo -e "\n\n"
 
 	selectOption
 }
@@ -75,9 +84,9 @@ function newMove() {
 # Function search operation
 
 function searchOperation() {
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------"
 	echo "			Buscar operación"
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------"
 
 	read -r -p "Introduce el concepto o parte de él: " concepto
 
@@ -90,9 +99,20 @@ function searchOperation() {
 # Function search operation
 
 function deleteOperation() {
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------"
 	echo "			Eliminar operación"
-	echo "--------------------------------------------------------"
+	echo "--------------------------------------------------------------"
+
+	read -r -p "Indique el ID a eliminar: " del
+
+	echo "¿Está seguro que quiere borrar el movimiento con el ID --> $del? [s/n]"
+	read res;
+	if [ "$res" == "s" ]; then
+		sed -i /"$del"/d "$file"
+		echo "El movimiento con ID --> $del ha sido borrado"
+	else
+		echo -e "Se ha cancelado la operación. \n\n"
+	fi
 
 	selectOption
 }
