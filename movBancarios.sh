@@ -1,5 +1,5 @@
 #!/bin/bash
-file="$HOME/movimientos.txt"
+file="$HOME/movimientos.dat"
 
 # Función Opciones del Menú
 
