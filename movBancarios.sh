@@ -113,7 +113,7 @@ function newMove() {
         compro=`exrp $mes \* 1 2> /dev/null`
     done
 
-    while [[ "$mes" -ge 1 -o "$mes" -le 12 ]]
+    while [ "$mes" -ge 1 -o "$mes" -le 12 ]
     do
         echo "[RuizalBank] --> El mes introducido no es correcto"
         read -r -p "Mes: " mes
