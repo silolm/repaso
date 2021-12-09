@@ -56,10 +56,6 @@ selectOption
 # Function add new move
 
 function newMove() {
-	reDia='^[1-31]+$'
-	reMes='^[1-12]+$'
-	reAnyo='^[1900-2900]+$'
-
 	echo "--------------------------------------------------------------------"
 	echo "			Añadir nuevo movimiento"
 	echo "--------------------------------------------------------------------"
@@ -70,27 +66,9 @@ function newMove() {
 	   di=0
 	fi
 
-	#--------------------------------------------------------------------
-	#							PEDIDO
-	#--------------------------------------------------------------------
-
-	#Pedimos el importe y controlamos que sea un valor numerico
+	read -r -p "Introduce una descripción: " descripcion
 	read -r -p "Introduce el importe: " importe
-
-    compro=`expr $importe \* 1 2> /dev/null`
-    while [ $? -ne 0 ]
-    do
-        echo "[RuizalBank] --> El importe introducido no es correcto"
-        read -r -p "Introduce el importe: " importe
-        #compro=`exrp $importe \* 1 2> /dev/null`
-    done
-
-    while [ $importe -gt 0 -o $importe -le 99999999 ]
-    do
-        echo "[RuizalBank] --> El importe introducido no es correcto"
-        read -r -p "Introduce el importe: " importe
-    done
-			
+				
 	echo "Fecha del importe"
 	
 	#--------------------------------------------------------------------
