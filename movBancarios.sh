@@ -81,7 +81,7 @@ function newMove() {
 	#Hacemos el control de errores y hacemos la comprobacion
     compro=`expr $dia \* 1 2> /dev/null`
 
-	while [ $trueDay=0 ]; do
+	while [[ "$trueDay" -eq 0 ]]; do
 		if [ $? -ne 0 ]; then
 			echo "[1] --> El dia introducido no es correcto"
         	read -r -p "Día: " dia
@@ -113,7 +113,7 @@ function newMove() {
         compro=`exrp $mes \* 1 2> /dev/null`
     done
 
-    while [ $mes -ge 1 -o $mes -le 12 ]
+    while [[ "$mes" -ge 1 -o "$mes" -le 12 ]]
     do
         echo "[RuizalBank] --> El mes introducido no es correcto"
         read -r -p "Mes: " mes
@@ -133,7 +133,7 @@ function newMove() {
         compro=`exrp $anyo \* 1 2> /dev/null`
     done
 
-    while [ $anyo -ge 1000 -o $anyo -le 3000 ]
+    while [ $anyo -ge 1 -o $anyo -le 3000 ]
     do
         echo "[RuizalBank] --> El año introducido no es correcto"
         read -r -p "Año: " anyo
