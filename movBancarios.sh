@@ -81,7 +81,7 @@ function newMove() {
 	#Hacemos el control de errores y hacemos la comprobacion
     compro=`expr $dia \* 1 2> /dev/null`
 
-	while [ $trueDay = "true" ]; do
+	while [ $trueDay != "true" ]; do
 		if [ $? -ne 0 ]; then
 			echo "[1] --> El dia introducido no es correcto"
         	read -r -p "Día: " dia
