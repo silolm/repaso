@@ -75,7 +75,7 @@ function newMove() {
 	#								DÍA
 	#--------------------------------------------------------------------
 
-	trueDay = false;
+	trueDay=false
 	#Pedimos el dia /mes /año
     read -r -p "Dia: " dia
 	#Hacemos el control de errores y hacemos la comprobacion
@@ -83,7 +83,7 @@ function newMove() {
 
 	while [ !trueDay ]; do
 		if [ $? -ne 0 ]; then
-			echo "[RuizalBank] --> El dia introducido no es correcto"
+			echo "[1] --> El dia introducido no es correcto"
         	read -r -p "Día: " dia
         	compro=`exrp $dia \* 1 2> /dev/null`
 		else
@@ -91,7 +91,7 @@ function newMove() {
 				$trueDay = true;
 			else
 				if [ $? -ne 0 ]; then
-					echo "[RuizalBank] --> El dia introducido no es correcto"
+					echo "[2] --> El dia introducido no es correcto"
 	        		read -r -p "Día: " dia
     		    	compro=`exrp $dia \* 1 2> /dev/null`
 				fi
