@@ -11,7 +11,6 @@ cat << options
   [3]  Buscar un movimiento
   [4]  Eliminar un movimiento
   [5]  Salir
-
 options
 }
 
@@ -71,6 +70,10 @@ function newMove() {
 	   di=0
 	fi
 
+	#--------------------------------------------------------------------
+	#							PEDIDO
+	#--------------------------------------------------------------------
+
 	#Pedimos el importe y controlamos que sea un valor numerico
 	read -r -p "Introduce el importe: " importe
 
@@ -82,7 +85,7 @@ function newMove() {
         #compro=`exrp $importe \* 1 2> /dev/null`
     done
 
-    while [ $importe -lt 1 -o $importe -gt 99999 ]
+    while [ $importe -gt 0 -o $importe -le 99999999 ]
     do
         echo "[RuizalBank] --> El importe introducido no es correcto"
         read -r -p "Introduce el importe: " importe
@@ -90,9 +93,13 @@ function newMove() {
 			
 	echo "Fecha del importe"
 	
+	#--------------------------------------------------------------------
+	#								DÍA
+	#--------------------------------------------------------------------
+
+	trueDay = false;
 	#Pedimos el dia /mes /año
     read -r -p "Dia: " dia
-	
 	#Hacemos el control de errores y hacemos la comprobacion
     compro=`expr $dia \* 1 2> /dev/null`
 
@@ -108,6 +115,27 @@ function newMove() {
         echo "[RuizalBank] --> El dia introducido no es correcto"
         read -r -p "Día: " dia
     done
+
+	while [ !trueDay ]; do
+		if [ $? -ne 0 ]; then
+			echo "[RuizalBank] --> El dia introducido no es correcto"
+        	read -r -p "Día: " dia
+        	compro=`exrp $dia \* 1 2> /dev/null`
+		else
+			if [ $dia -ge 1 -o $dia -le 31 ]; then
+				$trueDay = true;
+			else
+				if [ $? -ne 0 ]; then
+					echo "[RuizalBank] --> El dia introducido no es correcto"
+	        		read -r -p "Día: " dia
+    		    	compro=`exrp $dia \* 1 2> /dev/null`
+				fi
+			fi
+		fi
+	done
+	#--------------------------------------------------------------------
+	#								MES
+	#--------------------------------------------------------------------
 
     read -r -p "Mes: " mes
 
@@ -125,6 +153,10 @@ function newMove() {
         read -r -p "Mes: " mes
     done
         
+	#--------------------------------------------------------------------
+	#								AÑO
+	#--------------------------------------------------------------------
+
     read -r -p "Año: " anyo
 
     compro=`expr $anyo \* 1 2> /dev/null`
