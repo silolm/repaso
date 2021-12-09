@@ -112,7 +112,7 @@ function newMove() {
         	read -r -p "Mes: " mes
         	monthCheck=`exrp $mes \* 1 2> /dev/null`
 		else
-			if [ $mes -ge 1 -o $mes -le 31 ]; then
+			if [ $mes -ge 1 -o $mes -le 12 ]; then
 				$trueMonth=1;
 				break
 			else
