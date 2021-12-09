@@ -71,37 +71,77 @@ function newMove() {
 	   di=0
 	fi
 
-			read -r -p "Introduce una descripción: " descripcion
-			read -r -p "Introduce el importe: " importe
-			echo "Fecha de nacimiento"
+	#Pedimos el importe y controlamos que sea un valor numerico
+	read -r -p "Introduce el importe: " importe
 
-	while :
-        	do
-                	read -r -p "Día [1-31]: " dia
-	                if [[ $dia =~ $reDia ]]; then
-		                read -r -p "Mes [1-12]: " mes
-        	        else
-                	        echo -e "Fecha incorrecta \n"
-				selectOption
-               		fi
+    compro=`expr $importe \* 1 2> /dev/null`
+    while [ $? -ne 0 ]
+    do
+        echo "[RuizalBank] --> El importe introducido no es correcto"
+        read -r -p "Introduce el importe: " importe
+        #compro=`exrp $importe \* 1 2> /dev/null`
+    done
 
-        	        if [[ $mes =~ $reMes ]]; then
-	        	        read -r -p "Año: " anyo
-	                else
-        	                echo -e "Fecha incorrecta \n"
-				selectOption
-	                fi
+    while [ $importe -lt 1 -o $importe -gt 99999 ]
+    do
+        echo "[RuizalBank] --> El importe introducido no es correcto"
+        read -r -p "Introduce el importe: " importe
+    done
+			
+	echo "Fecha del importe"
+	
+	#Pedimos el dia /mes /año
+    read -r -p "Dia: " dia
+	
+	#Hacemos el control de errores y hacemos la comprobacion
+    compro=`expr $dia \* 1 2> /dev/null`
 
-                	if [[ $anyo =~ $reAnyo ]]; then
-                        	echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$file"
-				echo -e "\n\n"
-				break
-	                else
-        	                echo -e "Fecha incorrecta \n"
-				selectOption
-                	fi
-        done
+    while [ $? -ne 0 ]
+    do
+        echo "[RuizalBank] --> El dia introducido no es correcto"
+        read -r -p "Día: " dia
+        compro=`exrp $dia \* 1 2> /dev/null`
+    done
 
+    while [ $dia -lt 1 -o $dia -gt 31 ]
+    do
+        echo "[RuizalBank] --> El dia introducido no es correcto"
+        read -r -p "Día: " dia
+    done
+
+    read -r -p "Mes: " mes
+
+    compro=`expr $mes \* 1 2> /dev/null`
+    while [ $? -ne 0 ]
+    do
+        echo "[RuizalBank] --> El mes introducido no es correcto"
+        read -r -p "Mes: " mes
+        compro=`exrp $mes \* 1 2> /dev/null`
+    done
+
+    while [ $mes -lt 1 -o $mes -gt 12 ]
+    do
+        echo "[RuizalBank] --> El mes introducido no es correcto"
+        read -r -p "Mes: " mes
+    done
+        
+    read -r -p "Año: " anyo
+
+    compro=`expr $anyo \* 1 2> /dev/null`
+    while [ $? -ne 0 ]
+    do
+        echo "[RuizalBank] --> El año introducido no es correcto"
+        read -r -p "Año: " anyo
+        compro=`exrp $anyo \* 1 2> /dev/null`
+    done
+
+    while [ $anyo -lt 1000 -o $anyo -gt 3000 ]
+    do
+        echo "[RuizalBank] --> El año introducido no es correcto"
+        read -r -p "Año: " anyo
+    done
+
+    echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$datos"
 
 	selectOption
 }
