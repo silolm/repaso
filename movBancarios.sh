@@ -81,13 +81,13 @@ function newMove() {
 	#Hacemos el control de errores y hacemos la comprobacion
     compro=`expr $dia \* 1 2> /dev/null`
 
-	while [ $trueDay != "true" ]; do
+	while [ $trueDay = "true" ]; do
 		if [ $? -ne 0 ]; then
 			echo "[1] --> El dia introducido no es correcto"
         	read -r -p "Día: " dia
         	compro=`exrp $dia \* 1 2> /dev/null`
 		else
-			if [ $dia -ge 1 -o $dia -le 31 ]; then
+			if [ $dia -ge 1 -o $dia -le 31 -a $trueDay = "true" ]; then
 				$trueDay="false";
 				echo "JODER"
 			else
