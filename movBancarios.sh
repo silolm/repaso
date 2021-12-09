@@ -103,19 +103,6 @@ function newMove() {
 	#Hacemos el control de errores y hacemos la comprobacion
     compro=`expr $dia \* 1 2> /dev/null`
 
-    while [ $? -ne 0 ]
-    do
-        echo "[RuizalBank] --> El dia introducido no es correcto"
-        read -r -p "Día: " dia
-        compro=`exrp $dia \* 1 2> /dev/null`
-    done
-
-    while [ $dia -lt 1 -o $dia -gt 31 ]
-    do
-        echo "[RuizalBank] --> El dia introducido no es correcto"
-        read -r -p "Día: " dia
-    done
-
 	while [ !trueDay ]; do
 		if [ $? -ne 0 ]; then
 			echo "[RuizalBank] --> El dia introducido no es correcto"
