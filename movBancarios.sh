@@ -96,12 +96,8 @@ function newMove() {
 	        		read -r -p "Día: " dia
     		    	compro=`exrp $dia \* 1 2> /dev/null`
 				fi
-				echo "segundo IF"
 			fi
-			echo "primer IF"
 		fi
-
-		echo "bucle"
 	done
 	#--------------------------------------------------------------------
 	#								MES
@@ -117,7 +113,7 @@ function newMove() {
         compro=`exrp $mes \* 1 2> /dev/null`
     done
 
-    while [ $mes -lt 1 -o $mes -gt 12 ]
+    while [ $mes -ge 1 -o $mes -le 12 ]
     do
         echo "[RuizalBank] --> El mes introducido no es correcto"
         read -r -p "Mes: " mes
@@ -137,7 +133,7 @@ function newMove() {
         compro=`exrp $anyo \* 1 2> /dev/null`
     done
 
-    while [ $anyo -lt 1000 -o $anyo -gt 3000 ]
+    while [ $anyo -ge 1000 -o $anyo -le 3000 ]
     do
         echo "[RuizalBank] --> El año introducido no es correcto"
         read -r -p "Año: " anyo
@@ -147,7 +143,6 @@ function newMove() {
 
 	selectOption
 }
-
 
 # Function search operation
 
