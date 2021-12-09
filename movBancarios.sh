@@ -151,7 +151,7 @@ function newMove() {
 		fi
 	done
 
-    echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$datos"
+    echo "$di:$descripcion:$importe:$dia:$mes:$anyo" >> "$file"
 
 	selectOption
 }
