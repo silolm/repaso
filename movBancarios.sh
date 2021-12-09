@@ -89,14 +89,19 @@ function newMove() {
 		else
 			if [ $dia -ge 1 -o $dia -le 31 ]; then
 				$trueDay=false;
+				echo "JODER"
 			else
 				if [ $? -ne 0 ]; then
 					echo "[2] --> El dia introducido no es correcto"
 	        		read -r -p "Día: " dia
     		    	compro=`exrp $dia \* 1 2> /dev/null`
 				fi
+				echo "segundo IF"
 			fi
+			echo "primer IF"
 		fi
+
+		echo "bucle"
 	done
 	#--------------------------------------------------------------------
 	#								MES
