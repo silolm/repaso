@@ -138,7 +138,7 @@ function newMove() {
         	read -r -p "Año: " anyo
         	yearCheck=`exrp $mes \* 1 2> /dev/null`
 		else
-			if [ $year -ge 1 -o $year -le 3000 ]; then
+			if [ $anyo -ge 1 -o $anyo -le 3000 ]; then
 				$trueYear=1;
 				break
 			else
